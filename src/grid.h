@@ -580,11 +580,10 @@ struct Grid {
         wxString r;
         Formatter(r, format, indent, L"<grid>\n",
                   wxString::Format(
-                      L"<table cellspacing=0 cellpadding=3 style=\"border-width: %dpt; border-style: solid; font-size: %dpt;\">\n",
+                      L"<table cellspacing=0 cellpadding=3 style=\"border-width: %dpt; border-style: solid;\">\n",
                       cell == doc->rootgrid ? 0 : // Until the user_grid_outer_spacing of the root cell can be adjusted,
                                                   // using its default value doesn't make sense here
-                          user_grid_outer_spacing-1,
-                      12 - indent / 2)
+                          user_grid_outer_spacing-1)
                       .wc_str());
         foreachcellinsel(c, s) {
             if (x == 0) Formatter(r, format, indent, L"<row>\n", L"<tr valign=top>\n");

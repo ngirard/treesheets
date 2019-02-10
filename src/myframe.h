@@ -86,6 +86,9 @@ struct MyFrame : wxFrame {
 
         wxLogMessage(L"locale: %s", std::setlocale(LC_CTYPE, nullptr));
 
+        // Ensure wxString::Format(... %f ...) uses '.' as radix character
+        std::setlocale(LC_NUMERIC, "C");
+
         app->AddTranslation(GetPath("translations"));
 
         csf = GetContentScaleFactor();

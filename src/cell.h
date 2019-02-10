@@ -1,3 +1,4 @@
+#include <math.h>       /* pow */
 
 /* The evaluation types for a cell.
 CT_DATA: "Data"
@@ -248,10 +249,13 @@ struct Cell {
             str.Append(L"</cell>\n");
         } else if (format == A_EXPHTMLT) {
             wxString style;
-            if (text.stylebits & STYLE_BOLD) style += L"font-weight: bold;";
-            if (text.stylebits & STYLE_ITALIC) style += L"font-style: italic;";
-            if (text.stylebits & STYLE_FIXED) style += L"font-family: monospace;";
-            if (text.stylebits & STYLE_UNDERLINE) style += L"text-decoration: underline;";
+            if (text.stylebits & STYLE_BOLD) style += L"font-weight: bold; ";
+            if (text.stylebits & STYLE_ITALIC) style += L"font-style: italic; ";
+            if (text.stylebits & STYLE_FIXED) style += L"font-family: monospace; ";
+            if (text.stylebits & STYLE_UNDERLINE) style += L"text-decoration: underline; ";
+            if (text.relsize != 0) style += wxString::Format(L"font-size: %.2frem; ",
+                // Golden ratio (1.618) is too high ; LibreOffice's ratio (1.15) is too low.
+                pow(1.25,-text.relsize));
             if (cellcolor != doc->Background())
                 style += wxString::Format(L"background-color: #%06X;", SwapColor(cellcolor));
             if (textcolor != 0x000000)
